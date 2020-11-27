@@ -1,0 +1,17 @@
+server:
+  port: 10001
+eureka:
+  instance:
+    prefer-ip-address: true
+    lease-renewal-interval-in-seconds: 30
+    instance-id: ${spring.cloud.client.ip-address}.${spring.application.name}.${server.port}
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    registry-fetch-interval-seconds: 30
+    service-url:
+      defaultZone: http://10.225.12.96:8763/eureka/
+
+spring:
+  application:
+    name: orchid-product

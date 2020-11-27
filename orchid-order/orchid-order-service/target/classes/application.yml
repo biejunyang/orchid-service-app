@@ -1,0 +1,44 @@
+server:
+  port: 10011
+
+#  Spring基本配置
+spring:
+  application:
+    name: orchid-order
+
+# Eureka实例配置
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    registry-fetch-interval-seconds: 30
+    service-url:
+      defaultZone: http://10.225.12.96:8763/eureka/
+  instance:
+    prefer-ip-address: true
+    lease-renewal-interval-in-seconds: 30
+    instance-id: ${spring.cloud.client.ip-address}.${spring.application.name}.${server.port}
+
+
+# Feign客户端调用配置
+feign:
+#  开启熔断功能
+  hystrix:
+    enabled: true
+
+  client:
+    config:
+      default:
+#        修改Feign调用超时时间（默认是1秒就算超时）
+        connectTimeout: 1000
+        readTimeout: 1000
+
+
+# Hystrix全局超时设置
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 1000
