@@ -22,36 +22,35 @@ public class OrderController {
     private ProductClient productClient;
 
     @GetMapping("/{id}")
-    @HystrixCommand(fallbackMethod = "findByIdFail")
     public Object findById(@PathVariable("id") Long id){
         Product product=productClient.getProduct(id);
         return product;
     }
 
     public Object findByIdFail(Long id){
-
         System.out.println("findByIdFailxxxxxxxxxxxxxxxxx");
-        return "查看四百";
+        return "查看失败";
     }
 
 
 
 
     @HystrixCommand(fallbackMethod = "helloFail",commandProperties = {
-//            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "1000" )
+            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "10000" )
     })
     @GetMapping("/hello")
     public String hello(String id) throws InterruptedException {
-//        Thread.sleep(2000);
-//        if(id==null){
-//            throw new RuntimeException("xxxxx");
-//        }
-        return "<h1>hello</h1>";
+//        Thread.sleep(5000);
+        if(id==null){
+            throw new RuntimeException("xxxxx");
+        }
+        return "<h1>hello,"+id+"</h1>";
     }
 
 
+
     public String helloFail(String id) {
-        return "<h1>hello，faile</h1>";
+        return "<h1>hello，failed</h1>";
     }
 
 
