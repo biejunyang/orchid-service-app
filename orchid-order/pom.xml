@@ -12,6 +12,7 @@
     <groupId>com.orchid</groupId>
     <artifactId>orchid-order</artifactId>
 
+    <packaging>pom</packaging>
     <modules>
         <module>orchid-order-service</module>
         <module>orchid-order-api</module>

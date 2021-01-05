@@ -20,7 +20,7 @@ eureka:
     instance-id: ${spring.cloud.client.ip-address}.${spring.application.name}.${server.port}
 
 
-# Feign客户端调用配置
+## Feign客户端调用配置
 feign:
 #  开启熔断功能
   hystrix:
@@ -30,15 +30,24 @@ feign:
     config:
       default:
 #        修改Feign调用超时时间（默认是1秒就算超时）
-        connectTimeout: 1000
-        readTimeout: 1000
+        connectTimeout: 2000
+        readTimeout: 2000
 
 
-# Hystrix全局超时设置
+
+#hystrix熔断降级配置
 hystrix:
   command:
+#     Hystrix全局配置
     default:
+#      强制开启断路器
+#      circuitBreaker:
+#        forceOpen: false
       execution:
         isolation:
+#          隔离策略：THREAD(线程)和SEMAPHORE(信号量)
+#          strategy: SEMAPHORE
           thread:
-            timeoutInMilliseconds: 1000
+#             Hystrix全局超时配置（只有隔离模式是线程模式时才有效）
+            timeoutInMilliseconds: 3000
+
