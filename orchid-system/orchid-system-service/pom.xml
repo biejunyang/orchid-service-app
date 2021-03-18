@@ -3,19 +3,20 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>orchid-cloud-parent</artifactId>
+        <artifactId>orchid-service-parent</artifactId>
         <groupId>com.orchid</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.orchid</groupId>
-    <artifactId>orchid-product-service</artifactId>
+    <artifactId>orchid-system-service</artifactId>
+
 
     <dependencies>
         <dependency>
             <groupId>com.orchid</groupId>
-            <artifactId>orchid-product-api</artifactId>
+            <artifactId>orchid-core</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
@@ -23,6 +24,9 @@
             <artifactId>orchid-dao-mybatis</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
     </dependencies>
-
 </project>
