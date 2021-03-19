@@ -1,9 +1,13 @@
 package com.orchid.system.entity;
 
+import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.orchid.core.factory.TreeNode;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 系统权限信息表(SysPrivilege)表实体类
@@ -12,9 +16,9 @@ import java.util.Date;
  * @since 2021-03-18 16:20:45
  */
 @SuppressWarnings("serial")
-public class SysPrivilege extends Model<SysPrivilege> {
+public class SysPrivilege extends Model<SysPrivilege> implements TreeNode {
 
-    private Integer id;
+    private Long id;
     //名称
     private String name;
     //唯一编码
@@ -23,8 +27,8 @@ public class SysPrivilege extends Model<SysPrivilege> {
     private Object type;
     //url
     private String url;
-    //层级，表示父子关系
-    private String level;
+    //所有上级节点的编码;
+    private String pids;
     //排序值
     private Integer sort;
     //禁用标识 （0：启用；1：禁用；）
@@ -42,13 +46,24 @@ public class SysPrivilege extends Model<SysPrivilege> {
 
     private String updateClient;
 
+    @TableField(exist = false)
+    private List<SysPrivilege> children;
 
-    public Integer getId() {
+    @Override
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getPids() {
+        return pids;
+    }
+
+    public void setPids(String pids) {
+        this.pids = pids;
     }
 
     public String getName() {
@@ -83,13 +98,6 @@ public class SysPrivilege extends Model<SysPrivilege> {
         this.url = url;
     }
 
-    public String getLevel() {
-        return level;
-    }
-
-    public void setLevel(String level) {
-        this.level = level;
-    }
 
     public Integer getSort() {
         return sort;
@@ -163,5 +171,25 @@ public class SysPrivilege extends Model<SysPrivilege> {
     @Override
     protected Serializable pkVal() {
         return this.id;
+    }
+
+
+    @Override
+    public Long getPid() {
+        if(StrUtil.isNotEmpty(this.getPids())){
+            String[] strs=this.pids.split(",");
+            return Long.valueOf(strs[strs.length-1]);
+        }
+        return null;
+    }
+
+    @Override
+    public List getChildren() {
+        return children;
+    }
+
+    @Override
+    public void setChildren(List children) {
+        this.children=children;
     }
 }
