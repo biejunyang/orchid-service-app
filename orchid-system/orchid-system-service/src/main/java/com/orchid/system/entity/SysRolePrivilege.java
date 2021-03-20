@@ -13,34 +13,41 @@ import java.io.Serializable;
 @SuppressWarnings("serial")
 public class SysRolePrivilege extends Model<SysRolePrivilege> {
 
-    private Integer id;
+    private Long id;
 
-    private Integer roleId;
+    private Long roleId;
 
-    private Integer privilegeId;
+    private Long privilegeId;
 
+    public SysRolePrivilege() {
+    }
 
-    public Integer getId() {
+    public SysRolePrivilege(Long roleId, Long privilegeId) {
+        this.roleId = roleId;
+        this.privilegeId = privilegeId;
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public Integer getRoleId() {
+    public Long getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(Integer roleId) {
+    public void setRoleId(Long roleId) {
         this.roleId = roleId;
     }
 
-    public Integer getPrivilegeId() {
+    public Long getPrivilegeId() {
         return privilegeId;
     }
 
-    public void setPrivilegeId(Integer privilegeId) {
+    public void setPrivilegeId(Long privilegeId) {
         this.privilegeId = privilegeId;
     }
 

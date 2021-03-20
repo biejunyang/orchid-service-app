@@ -14,7 +14,7 @@ import java.util.Date;
 @SuppressWarnings("serial")
 public class SysRole extends Model<SysRole> {
 
-    private Integer id;
+    private Long id;
     //角色名称
     private String name;
     //角色唯一编码
@@ -36,12 +36,11 @@ public class SysRole extends Model<SysRole> {
 
     private String updateClient;
 
-
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

@@ -9,6 +9,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.orchid.core.Result;
 import com.orchid.system.entity.SysRole;
 import com.orchid.system.service.SysRoleService;
+import com.orchid.system.vo.RoleVo;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -89,17 +90,30 @@ public class SysRoleController extends ApiController {
      * @return 删除结果
      */
     @DeleteMapping
-    public R delete(@RequestParam("idList") List<Long> idList) {
-        return success(this.sysRoleService.removeByIds(idList));
+    public Result delete(@RequestParam("idList") List<Long> idList) {
+        sysRoleService.deleteByIds(idList);
+        return Result.success();
     }
 
 
     /**
      * 获取角色拥有的权限
+     *
+     * @param roleId
      * @return
      */
     @GetMapping("privileges")
-    public Result rolePrivilege(Integer id){
+    public Result rolePrivileges(@RequestParam("roleId") Long roleId){
+        return Result.success(sysRoleService.getRolePrivilegeIds(roleId));
+    }
+
+    /**
+     * 角色授权
+     * @return
+     */
+    @PostMapping("grant")
+    public Result grantPrivileges(@RequestBody RoleVo roleVo){
+        sysRoleService.grantPrivileges(roleVo.getRoleId(), roleVo.getPrivilegeIds());
         return Result.success();
     }
 }

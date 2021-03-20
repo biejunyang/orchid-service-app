@@ -1,0 +1,252 @@
+package com.orchid.system.entity;
+
+import java.util.Date;
+import java.io.Serializable;
+
+/**
+ * 用户信息表(SysUser)实体类
+ *
+ * @author makejava
+ * @since 2021-03-20 12:01:19
+ */
+public class SysUser implements Serializable {
+    private static final long serialVersionUID = 705281205300743048L;
+    /**
+    * id
+    */
+    private Long id;
+    /**
+    * 账号
+    */
+    private String username;
+    /**
+    * 密码
+    */
+    private String password;
+    /**
+    * 姓名
+    */
+    private String realName;
+    /**
+    * 昵称
+    */
+    private String nickName;
+    /**
+    * 出生日期
+    */
+    private Date birthday;
+    /**
+    * 性别：1男，2女，3不明
+    */
+    private Object sex;
+    /**
+    * 邮箱
+    */
+    private String email;
+    /**
+    * 手机号
+    */
+    private String phone;
+    /**
+    * 用户类型：1系统用户
+    */
+    private Object type;
+    /**
+    * 组织机构id
+    */
+    private Long organId;
+    /**
+    * 职位id
+    */
+    private Long positionId;
+    /**
+    * 备注
+    */
+    private String remark;
+    /**
+    * 禁用标识 （0：启用；1：禁用；）
+    */
+    private Object disabled;
+    /**
+    * 创建时间
+    */
+    private Date createTime;
+    /**
+    * 创建人
+    */
+    private String createUser;
+    
+    private String createClient;
+    /**
+    * 更新时间
+    */
+    private Date updateTime;
+    /**
+    * 更新人
+    */
+    private String updateUser;
+    
+    private String updateClient;
+
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getRealName() {
+        return realName;
+    }
+
+    public void setRealName(String realName) {
+        this.realName = realName;
+    }
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
+    }
+
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
+    public Object getSex() {
+        return sex;
+    }
+
+    public void setSex(Object sex) {
+        this.sex = sex;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public Object getType() {
+        return type;
+    }
+
+    public void setType(Object type) {
+        this.type = type;
+    }
+
+    public Long getOrganId() {
+        return organId;
+    }
+
+    public void setOrganId(Long organId) {
+        this.organId = organId;
+    }
+
+    public Long getPositionId() {
+        return positionId;
+    }
+
+    public void setPositionId(Long positionId) {
+        this.positionId = positionId;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
+    public Object getDisabled() {
+        return disabled;
+    }
+
+    public void setDisabled(Object disabled) {
+        this.disabled = disabled;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public String getCreateUser() {
+        return createUser;
+    }
+
+    public void setCreateUser(String createUser) {
+        this.createUser = createUser;
+    }
+
+    public String getCreateClient() {
+        return createClient;
+    }
+
+    public void setCreateClient(String createClient) {
+        this.createClient = createClient;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public String getUpdateUser() {
+        return updateUser;
+    }
+
+    public void setUpdateUser(String updateUser) {
+        this.updateUser = updateUser;
+    }
+
+    public String getUpdateClient() {
+        return updateClient;
+    }
+
+    public void setUpdateClient(String updateClient) {
+        this.updateClient = updateClient;
+    }
+
+}

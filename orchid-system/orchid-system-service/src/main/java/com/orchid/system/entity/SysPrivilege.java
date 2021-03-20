@@ -46,8 +46,13 @@ public class SysPrivilege extends Model<SysPrivilege> implements TreeNode {
 
     private String updateClient;
 
+    //子节点
     @TableField(exist = false)
     private List<SysPrivilege> children;
+
+    //父级节点id
+    @TableField(exist = false)
+    private Long parentId;
 
     @Override
     public Long getId() {
@@ -191,5 +196,13 @@ public class SysPrivilege extends Model<SysPrivilege> implements TreeNode {
     @Override
     public void setChildren(List children) {
         this.children=children;
+    }
+
+    public Long getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(Long parentId) {
+        this.parentId = parentId;
     }
 }
