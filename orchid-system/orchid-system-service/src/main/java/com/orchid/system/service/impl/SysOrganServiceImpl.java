@@ -48,7 +48,7 @@ public class SysOrganServiceImpl extends ServiceImpl<SysOrganDao, SysOrgan> impl
                     throw ExceptionBuilder.build("上级机构不能是自己!");
                 }
 
-                if(parentOrgan.getPids().contains(organ.getId().toString())){
+                if(StrUtil.isNotEmpty(parentOrgan.getPids()) && parentOrgan.getPids().contains(organ.getId().toString())){
                     throw ExceptionBuilder.build("上级机构不能是自己的子机构!");
                 }
 

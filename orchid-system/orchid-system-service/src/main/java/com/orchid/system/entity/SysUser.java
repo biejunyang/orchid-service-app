@@ -1,91 +1,58 @@
 package com.orchid.system.entity;
 
 import java.util.Date;
+
+import com.baomidou.mybatisplus.extension.activerecord.Model;
+
 import java.io.Serializable;
 
 /**
- * 用户信息表(SysUser)实体类
+ * 用户信息表(SysUser)表实体类
  *
  * @author makejava
- * @since 2021-03-20 12:01:19
+ * @since 2021-03-23 20:35:47
  */
-public class SysUser implements Serializable {
-    private static final long serialVersionUID = 705281205300743048L;
-    /**
-    * id
-    */
+@SuppressWarnings("serial")
+public class SysUser extends Model<SysUser> {
+    //id
     private Long id;
-    /**
-    * 账号
-    */
+    //账号
     private String username;
-    /**
-    * 密码
-    */
+    //密码
     private String password;
-    /**
-    * 姓名
-    */
+    //姓名
     private String realName;
-    /**
-    * 昵称
-    */
+    //昵称
     private String nickName;
-    /**
-    * 出生日期
-    */
+    //出生日期
     private Date birthday;
-    /**
-    * 性别：1男，2女，3不明
-    */
+    //性别：1男，2女，3不明
     private Object sex;
-    /**
-    * 邮箱
-    */
+    //邮箱
     private String email;
-    /**
-    * 手机号
-    */
+    //手机号
     private String phone;
-    /**
-    * 用户类型：1系统用户
-    */
+    //用户类型：1系统用户
     private Object type;
-    /**
-    * 组织机构id
-    */
+    //组织机构id
     private Long organId;
-    /**
-    * 职位id
-    */
+    //职位id
     private Long positionId;
-    /**
-    * 备注
-    */
+    //备注
     private String remark;
-    /**
-    * 禁用标识 （0：启用；1：禁用；）
-    */
+    //禁用标识 （0：启用；1：禁用；）
     private Object disabled;
-    /**
-    * 创建时间
-    */
+    //创建时间
     private Date createTime;
-    /**
-    * 创建人
-    */
+    //创建人
     private String createUser;
-    
+
     private String createClient;
-    /**
-    * 更新时间
-    */
+    //更新时间
     private Date updateTime;
-    /**
-    * 更新人
-    */
+    //更新人
     private String updateUser;
-    
+
     private String updateClient;
 
 
@@ -249,4 +216,13 @@ public class SysUser implements Serializable {
         this.updateClient = updateClient;
     }
 
+    /**
+     * 获取主键值
+     *
+     * @return 主键值
+     */
+    @Override
+    protected Serializable pkVal() {
+        return this.id;
+    }
 }
