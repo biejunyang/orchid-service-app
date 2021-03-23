@@ -43,8 +43,8 @@ public class SysUserController extends ApiController {
      * @return 所有数据
      */
     @GetMapping
-    public R selectAll(Page<SysUser> page, SysUser sysUser) {
-        return success(this.sysUserService.page(page, new QueryWrapper<>(sysUser)));
+    public Result selectAll(Page<SysUser> page, SysUser sysUser) {
+        return Result.success(this.sysUserService.page(page, new QueryWrapper<>(sysUser)));
     }
 
     /**
@@ -54,8 +54,8 @@ public class SysUserController extends ApiController {
      * @return 单条数据
      */
     @GetMapping("{id}")
-    public R selectOne(@PathVariable Serializable id) {
-        return success(this.sysUserService.getById(id));
+    public Result selectOne(@PathVariable Serializable id) {
+        return Result.success(this.sysUserService.getById(id));
     }
 
     /**
@@ -65,8 +65,8 @@ public class SysUserController extends ApiController {
      * @return 新增结果
      */
     @PostMapping
-    public R insert(@RequestBody SysUser sysUser) {
-        return success(this.sysUserService.save(sysUser));
+    public Result insert(@RequestBody SysUser sysUser) {
+        return Result.success(this.sysUserService.save(sysUser));
     }
 
     /**
@@ -76,8 +76,8 @@ public class SysUserController extends ApiController {
      * @return 修改结果
      */
     @PutMapping
-    public R update(@RequestBody SysUser sysUser) {
-        return success(this.sysUserService.updateById(sysUser));
+    public Result update(@RequestBody SysUser sysUser) {
+        return Result.success(this.sysUserService.updateById(sysUser));
     }
 
     /**
@@ -87,8 +87,8 @@ public class SysUserController extends ApiController {
      * @return 删除结果
      */
     @DeleteMapping
-    public R delete(@RequestParam("idList") List<Long> idList) {
-        return success(this.sysUserService.removeByIds(idList));
+    public Result delete(@RequestParam("idList") List<Long> idList) {
+        return Result.success(this.sysUserService.removeByIds(idList));
     }
 
 
