@@ -7,10 +7,9 @@ import com.baomidou.mybatisplus.extension.api.ApiController;
 import com.baomidou.mybatisplus.extension.api.R;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.orchid.core.Result;
-import com.orchid.core.factory.TreeBuildFactory;
+import com.orchid.core.util.TreeUtil;
 import com.orchid.mybatis.util.AssertUtils;
 import com.orchid.system.entity.SysOrgan;
-import com.orchid.system.entity.SysPrivilege;
 import com.orchid.system.service.SysOrganService;
 import org.springframework.web.bind.annotation.*;
 
@@ -64,7 +63,7 @@ public class SysOrganController extends ApiController {
     @GetMapping("tree")
     public Result selectTree(SysOrgan sysOrgan) {
         List<SysOrgan> organs=this.sysOrganService.list(new QueryWrapper<>(sysOrgan));
-        return Result.success(new TreeBuildFactory<SysOrgan>().doTreeBuild(organs));
+        return Result.success(TreeUtil.buildTree(organs));
     }
 
 

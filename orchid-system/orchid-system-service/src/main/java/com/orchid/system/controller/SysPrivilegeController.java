@@ -2,19 +2,15 @@ package com.orchid.system.controller;
 
 
 import cn.hutool.core.util.StrUtil;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.orchid.core.Result;
-import com.orchid.core.factory.TreeBuildFactory;
+import com.orchid.mybatis.util.AssertUtils;
 import com.orchid.system.entity.SysPrivilege;
 import com.orchid.system.service.SysPrivilegeService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * 系统权限信息表(SysPrivilege)表控制层
@@ -61,6 +57,9 @@ public class SysPrivilegeController{
      */
     @PostMapping
     public Result insert(@RequestBody SysPrivilege sysPrivilege) {
+
+        AssertUtils.columnNotUsed(sysPrivilegeService.getBaseMapper(), sysPrivilege, "权限编码", SysPrivilege::getCode);
+
         sysPrivilege.setPids(null);
         if(sysPrivilege.getParentId()!=null){
             SysPrivilege parent=sysPrivilegeService.getById(sysPrivilege.getParentId());
@@ -81,6 +80,9 @@ public class SysPrivilegeController{
      */
     @PutMapping
     public Result update(@RequestBody SysPrivilege sysPrivilege) {
+        SysPrivilege old=sysPrivilegeService.getById(sysPrivilege.getId());
+
+        AssertUtils.columnNotUsed(sysPrivilegeService.getBaseMapper(), sysPrivilege, "权限编码", SysPrivilege::getCode, old);
         sysPrivilegeService.updateById(sysPrivilege);
         return Result.success();
     }
@@ -92,11 +94,9 @@ public class SysPrivilegeController{
      * @return 删除结果
      */
     @DeleteMapping("{id}")
-    public Result delete(@PathVariable Serializable id) {
-        SysPrivilege privilege=sysPrivilegeService.getById(id);
-        String pids = (StrUtil.isNotEmpty(privilege.getPids()) ? privilege.getPids()+",": "") +privilege.getId();
-        sysPrivilegeService.remove(Wrappers.<SysPrivilege>lambdaQuery()
-                .likeRight(SysPrivilege::getPids, pids).or().eq(SysPrivilege::getId, id));
+    public Result delete(@PathVariable Long id) {
+
+        sysPrivilegeService.deletePrivilege(id);
         return Result.success();
     }
 }

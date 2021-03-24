@@ -3,7 +3,7 @@ package com.orchid.system.entity;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
-import com.orchid.core.factory.TreeNode;
+import com.orchid.core.model.TreeNode;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -178,9 +178,8 @@ public class SysPrivilege extends Model<SysPrivilege> implements TreeNode {
         return this.id;
     }
 
-
     @Override
-    public Long getPid() {
+    public Object getPid() {
         if(StrUtil.isNotEmpty(this.getPids())){
             String[] strs=this.pids.split(",");
             return Long.valueOf(strs[strs.length-1]);
@@ -188,7 +187,13 @@ public class SysPrivilege extends Model<SysPrivilege> implements TreeNode {
         return null;
     }
 
-    @Override
+    public Long getParentId() {
+        return this.parentId;
+    }
+    public void setParentId(Long parentId) {
+        this.parentId = parentId;
+    }
+
     public List getChildren() {
         return children;
     }
@@ -198,11 +203,5 @@ public class SysPrivilege extends Model<SysPrivilege> implements TreeNode {
         this.children=children;
     }
 
-    public Long getParentId() {
-        return parentId;
-    }
 
-    public void setParentId(Long parentId) {
-        this.parentId = parentId;
-    }
 }

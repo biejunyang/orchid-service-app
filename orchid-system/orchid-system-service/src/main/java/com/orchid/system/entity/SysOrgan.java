@@ -1,9 +1,10 @@
 package com.orchid.system.entity;
 
 import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.annotation.FieldStrategy;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
-import com.orchid.core.factory.TreeNode;
+import com.orchid.core.model.TreeNode;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -26,6 +27,7 @@ public class SysOrgan extends Model<SysOrgan> implements TreeNode {
     //备注
     private String remark;
     //所有上级节点的id
+    @TableField(updateStrategy = FieldStrategy.IGNORED)
     private String pids;
     //排序值
     private Integer sort;
@@ -168,8 +170,12 @@ public class SysOrgan extends Model<SysOrgan> implements TreeNode {
     }
 
 
+    public Long getParentId() {
+        return this.parentId;
+    }
+
     @Override
-    public Long getPid() {
+    public Object getPid() {
         if(StrUtil.isNotEmpty(this.getPids())){
             String[] strs=this.pids.split(",");
             return Long.valueOf(strs[strs.length-1]);
@@ -182,14 +188,11 @@ public class SysOrgan extends Model<SysOrgan> implements TreeNode {
         this.children=children;
     }
 
-    @Override
+
     public List getChildren() {
         return this.children;
     }
 
-    public Long getParentId() {
-        return parentId;
-    }
 
     public void setParentId(Long parentId) {
         this.parentId = parentId;

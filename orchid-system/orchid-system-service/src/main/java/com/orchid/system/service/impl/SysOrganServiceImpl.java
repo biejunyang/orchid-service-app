@@ -56,12 +56,17 @@ public class SysOrganServiceImpl extends ServiceImpl<SysOrganDao, SysOrgan> impl
                 organ.setPids(pids);
             }
 
-            List<SysOrgan> childrenOrgans=getChildrenOrgans(organ);
+            List<SysOrgan> childrenOrgans=getChildrenOrgans(oldOrgan);
             if(CollectionUtil.isNotEmpty(childrenOrgans)){
                 childrenOrgans.forEach(o -> {
-                    o.setPids(o.getPids().replaceAll(oldPids, organ.getPids()));
+                    String str=o.getPids().replaceAll(oldPids, StrUtil.isNotEmpty(organ.getPids()) ? organ.getPids() : "");
+                    if(StrUtil.isNotEmpty(str)){
+                        o.setPids(str);
+                    }else{
+                        o.setPids(null);
+                    }
                 });
-                this.saveBatch(childrenOrgans);
+                this.updateBatchById(childrenOrgans);
             }
         }
 
