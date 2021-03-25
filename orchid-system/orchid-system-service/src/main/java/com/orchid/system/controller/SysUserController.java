@@ -6,10 +6,13 @@ import com.baomidou.mybatisplus.extension.api.ApiController;
 import com.baomidou.mybatisplus.extension.api.R;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.orchid.core.Result;
+import com.orchid.mybatis.util.AssertUtils;
 import com.orchid.system.entity.SysPrivilege;
 import com.orchid.system.entity.SysUser;
 import com.orchid.system.service.SysPrivilegeService;
+import com.orchid.system.service.SysRoleService;
 import com.orchid.system.service.SysUserService;
+import com.orchid.system.vo.UserVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,20 +35,33 @@ public class SysUserController extends ApiController {
     @Resource
     private SysUserService sysUserService;
 
-    @Autowired
-    private SysPrivilegeService sysPrivilegeService;
 
     /**
-     * 分页查询所有数据
+     * 查询数据列表
      *
-     * @param page    分页对象
-     * @param sysUser 查询实体
-     * @return 所有数据
+     * @param sysUser
+     * @return
      */
     @GetMapping
-    public Result selectAll(Page<SysUser> page, SysUser sysUser) {
-        return Result.success(this.sysUserService.page(page, new QueryWrapper<>(sysUser)));
+    public Result find(SysUser sysUser) {
+        return Result.success(sysUserService.findUsers(sysUser));
     }
+
+
+    /**
+     * 查询分页列表
+     *
+     * @param page
+     * @param size
+     * @param sysUser
+     * @return
+     */
+    @GetMapping("{page}/{size}")
+    public Result findPage(@PathVariable Integer page, @PathVariable Integer size, SysUser sysUser) {
+        Page<SysUser> pager=new Page<>(page,size);
+        return Result.success(sysUserService.findUsers(pager, sysUser));
+    }
+
 
     /**
      * 通过主键查询单条数据
@@ -54,9 +70,10 @@ public class SysUserController extends ApiController {
      * @return 单条数据
      */
     @GetMapping("{id}")
-    public Result selectOne(@PathVariable Serializable id) {
+    public Result findById(@PathVariable Serializable id) {
         return Result.success(this.sysUserService.getById(id));
     }
+
 
     /**
      * 新增数据
@@ -66,6 +83,7 @@ public class SysUserController extends ApiController {
      */
     @PostMapping
     public Result insert(@RequestBody SysUser sysUser) {
+        AssertUtils.columnNotUsed(sysUserService.getBaseMapper(), sysUser, "用户名", SysUser::getUsername);
         return Result.success(this.sysUserService.save(sysUser));
     }
 
@@ -77,6 +95,8 @@ public class SysUserController extends ApiController {
      */
     @PutMapping
     public Result update(@RequestBody SysUser sysUser) {
+        SysUser oldUser=sysUserService.getById(sysUser.getId());
+        AssertUtils.columnNotUsed(sysUserService.getBaseMapper(), sysUser, "用户名", SysUser::getUsername,oldUser);
         return Result.success(this.sysUserService.updateById(sysUser));
     }
 
@@ -88,9 +108,20 @@ public class SysUserController extends ApiController {
      */
     @DeleteMapping
     public Result delete(@RequestParam("idList") List<Long> idList) {
-        return Result.success(this.sysUserService.removeByIds(idList));
+        sysUserService.deleteUsers(idList);
+        return Result.success();
     }
 
+
+    /**
+     * 获取用户关联的角色
+     * @param id
+     * @return
+     */
+    @GetMapping("roles")
+    public Result userRoles(Long id){
+        return Result.success(sysUserService.userRoles(id));
+    }
 
 
     /**
@@ -99,7 +130,20 @@ public class SysUserController extends ApiController {
      * @return
      */
     @GetMapping("privileges")
-    private Result userPrivilege(@RequestParam("userId") Long userId){
-        return Result.success(sysPrivilegeService.tree(new SysPrivilege()));
+    public Result userPrivilege(@RequestParam("userId") Long userId){
+        return Result.success();
     }
+
+
+    /**
+     * 角色授权
+     * @param userVo
+     * @return
+     */
+    @PostMapping("grantRole")
+    public Result grantRole(@RequestBody UserVo userVo){
+        sysUserService.grantRole(userVo);
+        return Result.success();
+    }
+
 }

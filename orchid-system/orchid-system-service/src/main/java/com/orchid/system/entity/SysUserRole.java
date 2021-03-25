@@ -19,6 +19,15 @@ public class SysUserRole extends Model<SysUserRole> {
     //角色id
     private Long roleId;
 
+    public SysUserRole() {
+
+    }
+
+    public SysUserRole(Long id, Long userId, Long roleId) {
+        this.id = id;
+        this.userId = userId;
+        this.roleId = roleId;
+    }
 
     public Long getId() {
         return id;

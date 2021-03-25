@@ -7,10 +7,13 @@ import com.orchid.system.dao.SysRoleDao;
 import com.orchid.system.entity.SysPrivilege;
 import com.orchid.system.entity.SysRole;
 import com.orchid.system.entity.SysRolePrivilege;
+import com.orchid.system.entity.SysUserRole;
 import com.orchid.system.service.SysRolePrivilegeService;
 import com.orchid.system.service.SysRoleService;
+import com.orchid.system.service.SysUserRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +30,9 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleDao, SysRole> impleme
 
     @Autowired
     private SysRolePrivilegeService sysRolePrivilegeService;
+
+    @Autowired
+    private SysUserRoleService userRoleService;
 
     @Override
     public List<SysPrivilege> getRolePrivileges(long roleId) {
@@ -53,10 +59,24 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleDao, SysRole> impleme
         }
     }
 
+
+    /**
+     * 删除角色信息
+     * @param roleIds
+     */
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public void deleteByIds(List<Long> roleIds) {
+
+        //删除角色权限关联信息
         sysRolePrivilegeService.remove(Wrappers.<SysRolePrivilege>lambdaQuery()
                 .in(SysRolePrivilege::getRoleId, roleIds));
+
+        //删除用户角色关联信息
+        userRoleService.remove(Wrappers.<SysUserRole>lambdaQuery()
+                .in(SysUserRole::getRoleId, roleIds));
+
+        //删除角色
         this.removeByIds(roleIds);
     }
 }

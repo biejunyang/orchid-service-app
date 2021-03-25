@@ -2,6 +2,7 @@ package com.orchid.system.entity;
 
 import java.util.Date;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 
 import java.io.Serializable;
@@ -36,6 +37,7 @@ public class SysUser extends Model<SysUser> {
     private Object type;
     //组织机构id
     private Long organId;
+
     //职位id
     private Long positionId;
     //备注
@@ -55,6 +57,19 @@ public class SysUser extends Model<SysUser> {
 
     private String updateClient;
 
+    /**
+     * 管理员类型（0超级管理员 1非管理员）
+     */
+    private Integer adminType;
+
+
+    //机构名称
+    @TableField(exist = false)
+    private String organName;
+
+    //关键字查询,姓名，账号，手机号
+    @TableField(exist = false)
+    private String keyword;
 
     public Long getId() {
         return id;
@@ -214,6 +229,31 @@ public class SysUser extends Model<SysUser> {
 
     public void setUpdateClient(String updateClient) {
         this.updateClient = updateClient;
+    }
+
+
+    public String getOrganName() {
+        return organName;
+    }
+
+    public void setOrganName(String organName) {
+        this.organName = organName;
+    }
+
+    public String getKeyword() {
+        return keyword;
+    }
+
+    public void setKeyword(String keyword) {
+        this.keyword = keyword;
+    }
+
+    public Integer getAdminType() {
+        return adminType;
+    }
+
+    public void setAdminType(Integer adminType) {
+        this.adminType = adminType;
     }
 
     /**
