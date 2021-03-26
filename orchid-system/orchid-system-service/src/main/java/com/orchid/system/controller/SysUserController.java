@@ -1,6 +1,7 @@
 package com.orchid.system.controller;
 
 
+import cn.hutool.crypto.digest.BCrypt;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.api.ApiController;
 import com.baomidou.mybatisplus.extension.api.R;
@@ -84,6 +85,7 @@ public class SysUserController extends ApiController {
     @PostMapping
     public Result insert(@RequestBody SysUser sysUser) {
         AssertUtils.columnNotUsed(sysUserService.getBaseMapper(), sysUser, "用户名", SysUser::getUsername);
+
         return Result.success(this.sysUserService.save(sysUser));
     }
 
