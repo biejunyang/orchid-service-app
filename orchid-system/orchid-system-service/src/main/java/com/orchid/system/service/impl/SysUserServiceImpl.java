@@ -17,6 +17,9 @@ import com.orchid.system.service.SysUserRoleService;
 import com.orchid.system.service.SysUserService;
 import com.orchid.system.vo.UserVo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,7 +34,7 @@ import java.util.stream.Collectors;
  * @since 2021-03-23 20:35:48
  */
 @Service("sysUserService")
-public class SysUserServiceImpl extends ServiceImpl<SysUserDao, SysUser> implements SysUserService {
+public class SysUserServiceImpl extends ServiceImpl<SysUserDao, SysUser> implements SysUserService, UserDetailsService {
 
     @Autowired
     private SysUserDao userDao;
@@ -110,5 +113,11 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserDao, SysUser> impleme
                 userRoleService.save(new SysUserRole(null, userVo.getId(), r));
             });
         }
+    }
+
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return null;
     }
 }

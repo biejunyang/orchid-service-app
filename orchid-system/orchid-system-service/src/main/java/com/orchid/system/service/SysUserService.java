@@ -16,7 +16,7 @@ import java.util.List;
  * @author makejava
  * @since 2021-03-23 20:35:48
  */
-public interface SysUserService extends IService<SysUser> {
+public interface SysUserService extends IService<SysUser>{
 
     List<SysUser> findUsers(SysUser userVo);
 

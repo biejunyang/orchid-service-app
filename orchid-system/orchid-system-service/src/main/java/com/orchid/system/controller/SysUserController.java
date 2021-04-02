@@ -15,6 +15,9 @@ import com.orchid.system.service.SysRoleService;
 import com.orchid.system.service.SysUserService;
 import com.orchid.system.vo.UserVo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -43,6 +46,8 @@ public class SysUserController extends ApiController {
      * @param sysUser
      * @return
      */
+//    @PreAuthorize("hasAuthority('USER_LIST')")
+        @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping
     public Result find(SysUser sysUser) {
         return Result.success(sysUserService.findUsers(sysUser));
@@ -146,6 +151,17 @@ public class SysUserController extends ApiController {
     public Result grantRole(@RequestBody UserVo userVo){
         sysUserService.grantRole(userVo);
         return Result.success();
+    }
+
+    /**
+     * 获取当前认证信息
+     * @return
+     */
+    @GetMapping("/userInfo3")
+    @ResponseBody
+    public Object userInfo3(){
+        Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
+        return authentication;
     }
 
 }
