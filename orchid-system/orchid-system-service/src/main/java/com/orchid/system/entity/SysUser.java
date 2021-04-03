@@ -2,6 +2,7 @@ package com.orchid.system.entity;
 
 import java.util.Date;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 
 import java.io.Serializable;
@@ -55,6 +56,8 @@ public class SysUser extends Model<SysUser> {
 
     private String updateClient;
 
+    @TableField(exist = false)
+    private String organName;
 
     public Long getId() {
         return id;
