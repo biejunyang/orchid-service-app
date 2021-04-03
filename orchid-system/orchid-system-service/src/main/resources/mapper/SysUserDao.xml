@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.orchid.system.dao.SysUserDao">
+
+
+    <select id="findUsers" resultType="com.orchid.system.entity.SysUser">
+        select u.*, o.name organ_name  from sys_user u left join sys_organ o on o.id = u.organ_id
+        <where>
+            <if test="userVo.id != null">
+                and u.id = #{userVo.id}
+            </if>
+            <if test="userVo.keyword != null and userVo.keyword != ''">
+                and (u.username like '%#{userVo.keyword}%' or u.real_name like '%#{userVo.keyword}%' or u.phone = #{userVo.keyword})
+            </if>
+            <if test="userVo.disabled != null">
+                and u.disabled = #{userVo.disabled}
+            </if>
+
+        </where>
+    </select>
+
+</mapper>

@@ -9,6 +9,13 @@ spring:
     username: root
     password: bgi2019$
 
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:9001/.well-known/jwks.json
+
+
 mybatis-plus:
   configuration:
     auto-mapping-behavior: FULL
@@ -27,3 +34,28 @@ mybatis-plus:
 #  auth:
 #    jwt:
 #      enable: true
+
+
+#orchid:
+#  auth:
+#    jwt:
+#      ignores：
+#        # 需要过滤的 post 请求
+#        post:
+#        - "/api/auth/login"
+#        - "/api/auth/logout"
+#        # 需要过滤的请求，不限方法
+#        pattern:
+#        - "/role/*"
+#        issuer:
+
+#orchid:
+#  auth:
+#    jwt:
+#      ignores:
+#        post:
+#        - "/api/auth/login"
+#        - "/api/auth/logout"
+#        # 需要过滤的请求，不限方法
+#        pattern:
+#        - "/role/*"

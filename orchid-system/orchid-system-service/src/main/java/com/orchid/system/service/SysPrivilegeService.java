@@ -15,4 +15,7 @@ import java.util.List;
 public interface SysPrivilegeService extends IService<SysPrivilege> {
 
     List<SysPrivilege> tree(SysPrivilege sysPrivilege);
+
+
+    void deletePrivilege(Long id);
 }

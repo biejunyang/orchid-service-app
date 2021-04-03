@@ -11,4 +11,5 @@ import com.orchid.system.entity.SysRolePrivilege;
  */
 public interface SysRolePrivilegeService extends IService<SysRolePrivilege> {
 
+
 }
