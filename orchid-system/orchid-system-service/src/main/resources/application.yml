@@ -9,11 +9,41 @@ spring:
     username: root
     password: bgi2019$
 
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          jwk-set-uri: http://localhost:9001/.well-known/jwks.json
+  #redis连接池配置
+  redis:
+    host: 10.225.12.98
+    port: 6379
+    password: bgiredis
+    #    数据库模式指定，0~15一共16个模式，默认选择0
+    database: 8
+    #    spring boot2中默认使用lettuce作为redis客户端
+#    lettuce:
+#      pool:
+#        #        连接池最大连接池
+#        max-active: 8
+#        #        连接池最大阻塞时间，单位毫秒，负数表示没有限制
+#        max-wait: -1
+#        #        连接池中最大空闲连接数量
+#        max-idle: 8
+#        #        连接池中最小空闲连接数量
+#        min-idle: 0
+
+
+#  security:
+#    oauth2:
+#      resourceserver:
+#        jwt:
+#          jwk-set-uri: http://localhost:9001/.well-known/jwks.json
+
+
+#安全认证管理
+#security:
+#  oauth2:
+#    client:
+#      client-id: client
+#      client-secret: client
+#    resource:
+#      token-info-uri: http://localhost:9001/oauth/check_token
 
 
 mybatis-plus:
@@ -59,3 +89,4 @@ mybatis-plus:
 #        # 需要过滤的请求，不限方法
 #        pattern:
 #        - "/role/*"
+
