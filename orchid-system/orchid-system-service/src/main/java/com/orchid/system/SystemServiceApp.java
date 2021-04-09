@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-@EnableResourceServer
 @SpringBootApplication
 @RestController
 public class SystemServiceApp {
