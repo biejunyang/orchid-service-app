@@ -29,6 +29,8 @@ spring:
 #        min-idle: 0
 
 
+# Spring Security 5.x中 resource server实现
+# 默认支持jwt bear token校验
 #  security:
 #    oauth2:
 #      resourceserver:
@@ -36,16 +38,31 @@ spring:
 #          jwk-set-uri: http://localhost:9001/.well-known/jwks.json
 
 
-#安全认证管理
-#security:
-#  oauth2:
-#    client:
-#      client-id: client
-#      client-secret: client
-#    resource:
+
+
+#安全认证管理--------------------------------------------
+security:
+  oauth2:
+    client:
+      client-id: client
+      client-secret: client
+    resource:
 #      token-info-uri: http://localhost:9001/oauth/check_token
+#      jwk:
+#        key-set-uri: http://localhost:9001/.well-known/jwks.json
+      jwt:
+        key-uri:  http://localhost:9001/oauth/token_key
+
+#orchid:
+#  auth-server:
+#    #    token存储类别：inmemory,redis,jwt
+#    token-store-type: redis
+#--------------------------------------------------------
 
 
+
+
+#mybatis-plus 配置--------------------------------------
 mybatis-plus:
   configuration:
     auto-mapping-behavior: FULL
@@ -59,6 +76,9 @@ mybatis-plus:
   log: true
   mapper-locations: classpath*:mapper/*.xml
   type-aliases-package: com.orchid.system.entity
+#--------------------------------------------------------
+
+
 
 #orchid:
 #  auth:
@@ -89,4 +109,5 @@ mybatis-plus:
 #        # 需要过滤的请求，不限方法
 #        pattern:
 #        - "/role/*"
+
 

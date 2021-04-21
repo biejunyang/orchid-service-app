@@ -1,20 +1,13 @@
 package com.orchid.system.controller;
 
 
-import cn.hutool.crypto.digest.BCrypt;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.api.ApiController;
-import com.baomidou.mybatisplus.extension.api.R;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.orchid.core.Result;
 import com.orchid.mybatis.util.AssertUtils;
-import com.orchid.system.entity.SysPrivilege;
 import com.orchid.system.entity.SysUser;
-import com.orchid.system.service.SysPrivilegeService;
-import com.orchid.system.service.SysRoleService;
 import com.orchid.system.service.SysUserService;
 import com.orchid.system.vo.UserVo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

@@ -36,27 +36,17 @@
         </dependency>
         <dependency>
             <groupId>com.orchid.resource</groupId>
-            <artifactId>orchid-resource</artifactId>
+            <artifactId>orchid-resource-server</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+
         <!--<dependency>-->
             <!--<groupId>com.orchid</groupId>-->
             <!--<artifactId>orchid-security</artifactId>-->
             <!--<version>1.0-SNAPSHOT</version>-->
         <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>org.springframework.boot</groupId>-->
-            <!--<artifactId>spring-boot-starter-security</artifactId>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>org.springframework.security</groupId>-->
-            <!--<artifactId>spring-security-oauth2-resource-server</artifactId>-->
-        <!--</dependency>-->
 
-        <!--<dependency>-->
-            <!--<groupId>org.springframework.security</groupId>-->
-            <!--<artifactId>spring-security-oauth2-jose</artifactId>-->
-        <!--</dependency>-->
+
 
     </dependencies>
 </project>
