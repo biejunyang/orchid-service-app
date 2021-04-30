@@ -2,7 +2,6 @@ package com.orchid.system.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.orchid.system.entity.SysPrivilege;
-import netscape.security.Privilege;
 
 import java.util.List;
 
