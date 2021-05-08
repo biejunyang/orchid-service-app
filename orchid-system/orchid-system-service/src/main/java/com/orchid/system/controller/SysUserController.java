@@ -40,7 +40,7 @@ public class SysUserController extends ApiController {
      * @return
      */
 //    @PreAuthorize("hasAuthority('USER_LIST')")
-        @PreAuthorize("hasRole('ROLE_ADMIN')")
+//        @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping
     public Result find(SysUser sysUser) {
         return Result.success(sysUserService.findUsers(sysUser));
@@ -70,7 +70,14 @@ public class SysUserController extends ApiController {
      */
     @GetMapping("{id}")
     public Result findById(@PathVariable Serializable id) {
-        return Result.success(this.sysUserService.getById(id));
+        SysUser user=this.sysUserService.getById(id);
+        if(user == null) {
+            return Result.success();
+        }
+        user.setPassword("N/A");
+        user.setRoles(sysUserService.userRoles(user));
+        user.setPrivileges(sysUserService.userPrivileges(user));
+        return Result.success(user);
     }
 
 
@@ -120,7 +127,8 @@ public class SysUserController extends ApiController {
      */
     @GetMapping("roles")
     public Result userRoles(Long id){
-        return Result.success(sysUserService.userRoles(id));
+        SysUser user=sysUserService.getById(id);
+        return Result.success(sysUserService.userRoles(user));
     }
 
 

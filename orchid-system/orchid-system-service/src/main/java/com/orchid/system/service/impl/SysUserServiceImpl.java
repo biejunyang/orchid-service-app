@@ -73,17 +73,16 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserDao, SysUser> impleme
 
     /**
      * 获取用户拥有角色
-     * @param userId
+     * @param user
      * @return
      */
     @Override
-    public List<SysRole> userRoles(Long userId) {
-        SysUser user=this.getById(userId);
+    public List<SysRole> userRoles(SysUser user) {
         List<SysRole> roles=new ArrayList<>();
         if(user.getAdminType().equals(1)){
-            roles=roleService.list();
+            //管理员角色默认拥有全部角色
         }else{
-            List<Long> roleIds=userRoleService.list(Wrappers.<SysUserRole>lambdaQuery().eq(SysUserRole::getUserId, userId))
+            List<Long> roleIds=userRoleService.list(Wrappers.<SysUserRole>lambdaQuery().eq(SysUserRole::getUserId, user.getId()))
                     .parallelStream().map(SysUserRole::getRoleId).collect(Collectors.toList());
             if(CollectionUtil.isNotEmpty(roleIds)){
                 roles=roleService.list(Wrappers.<SysRole>lambdaQuery().in(SysRole::getId, roleIds));
@@ -93,9 +92,20 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserDao, SysUser> impleme
     }
 
 
+    /**
+     * 获取用户拥有的权限
+     * @param user
+     * @return
+     */
     @Override
-    public List<SysPrivilege> userPrivileges(Long userId) {
-        return null;
+    public List<SysPrivilege> userPrivileges(SysUser user) {
+        List<SysPrivilege> privileges=new ArrayList<>();
+        if(user.getAdminType().equals(1)){
+            //管理员角色默认拥有所有权限
+        }else{
+            privileges=userDao.userPrivileges(user.getId());
+        }
+        return privileges;
     }
 
 

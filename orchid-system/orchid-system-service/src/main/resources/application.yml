@@ -45,26 +45,22 @@ spring:
 
 
 #安全认证管理--------------------------------------------
-security:
-  oauth2:
-    client:
-      client-id: client
-      client-secret: client
-    resource:
-#      prefer-token-info: true
-#      token-info-uri: http://localhost:9001/oauth/check_token
-#      user-info-uri: http://localhost:9001/userInfo
-#      jwk:
-#        key-set-uri: http://localhost:9001/.well-known/jwks.json
-      jwt:
-        key-uri:  http://localhost:9001/oauth/token_key
-#        key-value: classpath:pubkey.txt
+#security:
+#  oauth2:
+#    client:
+#      client-id: client
+#      client-secret: client
+#    resource:
+##      prefer-token-info: true
+##      token-info-uri: http://localhost:9001/oauth/check_token
+##      user-info-uri: http://localhost:9001/userInfo
+##      jwk:
+##        key-set-uri: http://localhost:9001/.well-known/jwks.json
+#      jwt:
+#        key-uri:  http://localhost:9001/oauth/token_key
+##        key-value: classpath:pubkey.txt
 
 
-#orchid:
-#  auth-server:
-#    #    token存储类别：inmemory,redis,jwt
-#    token-store-type: inmemory
 #--------------------------------------------------------
 
 
@@ -87,11 +83,6 @@ mybatis-plus:
 #--------------------------------------------------------
 
 
-
-#orchid:
-#  auth:
-#    jwt:
-#      enable: true
 
 
 #orchid:

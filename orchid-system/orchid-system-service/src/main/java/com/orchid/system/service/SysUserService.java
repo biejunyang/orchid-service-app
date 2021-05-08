@@ -25,9 +25,9 @@ public interface SysUserService extends IService<SysUser>{
     void deleteUsers(List<Long> ids);
 
 
-    List<SysRole> userRoles(Long userId);
+    List<SysRole> userRoles(SysUser user);
 
-    List<SysPrivilege> userPrivileges(Long userId);
+    List<SysPrivilege> userPrivileges(SysUser user);
 
     void grantRole(UserVo userVo);
 }

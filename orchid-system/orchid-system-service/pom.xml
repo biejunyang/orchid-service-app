@@ -35,11 +35,17 @@
             <version>1.0-SNAPSHOT</version>
         </dependency>
 
-        <dependency>
-            <groupId>com.orchid.resource</groupId>
-            <artifactId>orchid-resource-server</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>com.orchid.resource</groupId>-->
+            <!--<artifactId>orchid-resource-server</artifactId>-->
+            <!--<version>1.0-SNAPSHOT</version>-->
+        <!--</dependency>-->
+
+        <!--<dependency>-->
+            <!--<groupId>com.orchid</groupId>-->
+            <!--<artifactId>orchid-security</artifactId>-->
+            <!--<version>1.0-SNAPSHOT</version>-->
+        <!--</dependency>-->
 
         <!--<dependency>-->
             <!--<groupId>org.springframework.cloud</groupId>-->
@@ -66,11 +72,7 @@
             <!--<artifactId>spring-security-oauth2-jose</artifactId>-->
         <!--</dependency>-->
 
-        <!--<dependency>-->
-            <!--<groupId>com.orchid</groupId>-->
-            <!--<artifactId>orchid-security</artifactId>-->
-            <!--<version>1.0-SNAPSHOT</version>-->
-        <!--</dependency>-->
+
 
 
 

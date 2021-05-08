@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * 用户信息表(SysUser)表实体类
@@ -63,6 +64,23 @@ public class SysUser extends Model<SysUser> {
      * 管理员类型（0超级管理员 1非管理员）
      */
     private Integer adminType;
+
+    //角色信息
+    @TableField(exist = false)
+    private List<SysRole> roles;
+
+    //权限信息
+    @TableField(exist = false)
+    private List<SysPrivilege> privileges;
+
+
+
+
+
+
+
+
+
 
 
     //关键字查询,姓名，账号，手机号
@@ -252,6 +270,22 @@ public class SysUser extends Model<SysUser> {
 
     public void setAdminType(Integer adminType) {
         this.adminType = adminType;
+    }
+
+    public List<SysRole> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<SysRole> roles) {
+        this.roles = roles;
+    }
+
+    public List<SysPrivilege> getPrivileges() {
+        return privileges;
+    }
+
+    public void setPrivileges(List<SysPrivilege> privileges) {
+        this.privileges = privileges;
     }
 
     /**
