@@ -34,7 +34,7 @@ import java.util.stream.Collectors;
  * @since 2021-03-23 20:35:48
  */
 @Service("sysUserService")
-public class SysUserServiceImpl extends ServiceImpl<SysUserDao, SysUser> implements SysUserService, UserDetailsService {
+public class SysUserServiceImpl extends ServiceImpl<SysUserDao, SysUser> implements SysUserService {
 
     @Autowired
     private SysUserDao userDao;
@@ -124,10 +124,5 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserDao, SysUser> impleme
             });
         }
     }
-
-
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return null;
-    }
+    
 }
