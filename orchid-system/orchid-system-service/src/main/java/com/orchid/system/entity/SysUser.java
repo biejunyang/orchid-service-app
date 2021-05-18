@@ -4,6 +4,7 @@ import java.util.Date;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import java.io.Serializable;
 import java.util.List;
@@ -29,6 +30,7 @@ public class SysUser extends Model<SysUser> {
     //出生日期
     private Date birthday;
     //性别：1男，2女，3不明
+//    @JsonSerialize()
     private Object sex;
     //邮箱
     private String email;
@@ -72,15 +74,6 @@ public class SysUser extends Model<SysUser> {
     //权限信息
     @TableField(exist = false)
     private List<SysPrivilege> privileges;
-
-
-
-
-
-
-
-
-
 
 
     //关键字查询,姓名，账号，手机号
