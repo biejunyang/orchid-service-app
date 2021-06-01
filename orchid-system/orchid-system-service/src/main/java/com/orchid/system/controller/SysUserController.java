@@ -8,12 +8,9 @@ import com.orchid.mybatis.util.AssertUtils;
 import com.orchid.system.entity.SysUser;
 import com.orchid.system.service.SysUserService;
 import com.orchid.system.vo.UserVo;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
