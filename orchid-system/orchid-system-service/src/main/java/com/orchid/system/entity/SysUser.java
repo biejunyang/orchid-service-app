@@ -4,6 +4,8 @@ import java.util.Date;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
 import java.util.List;
@@ -21,6 +23,7 @@ public class SysUser extends Model<SysUser> {
     //账号
     private String username;
     //密码
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
     //姓名
     private String realName;
@@ -29,8 +32,7 @@ public class SysUser extends Model<SysUser> {
     //出生日期
     private Date birthday;
     //性别：1男，2女，3不明
-//    @JsonSerialize()
-    private Object sex;
+    private Integer sex;
     //邮箱
     private String email;
     //手机号
@@ -39,13 +41,12 @@ public class SysUser extends Model<SysUser> {
     private Object type;
     //组织机构id
     private Long organId;
-
     //职位id
     private Long positionId;
     //备注
     private String remark;
     //禁用标识 （0：启用；1：禁用；）
-    private Object disabled;
+    private Integer disabled;
     //创建时间
     private Date createTime;
     //创建人
@@ -127,11 +128,11 @@ public class SysUser extends Model<SysUser> {
         this.birthday = birthday;
     }
 
-    public Object getSex() {
+    public Integer getSex() {
         return sex;
     }
 
-    public void setSex(Object sex) {
+    public void setSex(Integer sex) {
         this.sex = sex;
     }
 
@@ -183,11 +184,11 @@ public class SysUser extends Model<SysUser> {
         this.remark = remark;
     }
 
-    public Object getDisabled() {
+    public Integer getDisabled() {
         return disabled;
     }
 
-    public void setDisabled(Object disabled) {
+    public void setDisabled(Integer disabled) {
         this.disabled = disabled;
     }
 
@@ -239,21 +240,12 @@ public class SysUser extends Model<SysUser> {
         this.updateClient = updateClient;
     }
 
-
     public String getOrganName() {
         return organName;
     }
 
     public void setOrganName(String organName) {
         this.organName = organName;
-    }
-
-    public String getKeyword() {
-        return keyword;
-    }
-
-    public void setKeyword(String keyword) {
-        this.keyword = keyword;
     }
 
     public Integer getAdminType() {
@@ -278,6 +270,14 @@ public class SysUser extends Model<SysUser> {
 
     public void setPrivileges(List<SysPrivilege> privileges) {
         this.privileges = privileges;
+    }
+
+    public String getKeyword() {
+        return keyword;
+    }
+
+    public void setKeyword(String keyword) {
+        this.keyword = keyword;
     }
 
     /**
