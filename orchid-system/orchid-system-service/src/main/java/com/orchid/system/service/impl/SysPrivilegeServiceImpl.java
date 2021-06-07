@@ -1,5 +1,6 @@
 package com.orchid.system.service.impl;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -14,7 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * 系统权限信息表(SysPrivilege)表服务实现类
@@ -33,7 +35,21 @@ public class SysPrivilegeServiceImpl extends ServiceImpl<SysPrivilegeDao, SysPri
     public List<SysPrivilege> tree(SysPrivilege sysPrivilege) {
         QueryWrapper<SysPrivilege> wrapper=new QueryWrapper<>(sysPrivilege);
         List<SysPrivilege> privileges=this.list(wrapper.orderByAsc("sort", "id"));
-        return TreeUtil.buildTree(privileges);
+        if(CollUtil.isNotEmpty(privileges)){
+            Set<Long> parentIds=new HashSet<>();
+            privileges.forEach(item -> {
+                if(StrUtil.isNotEmpty(item.getPids())){
+                    parentIds.addAll(Arrays.stream(item.getPids().split(",")).map(Long::new).collect(Collectors.toList()));
+                }
+            });
+            List<Long> ids = privileges.parallelStream().map(SysPrivilege::getId).collect(Collectors.toList());
+            parentIds.removeAll(ids);
+            if(CollUtil.isNotEmpty(parentIds)){
+                privileges.addAll(this.lambdaQuery().in(SysPrivilege::getId, parentIds).list());
+            }
+            return TreeUtil.buildTree(privileges);
+        }
+        return null;
     }
 
     @Override
