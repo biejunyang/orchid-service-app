@@ -78,6 +78,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserDao, SysUser> impleme
         List<SysRole> roles=new ArrayList<>();
         if(user.getAdminType().equals(1)){
             //管理员角色默认拥有全部角色
+            roles = roleService.list();
         }else{
             List<Long> roleIds=userRoleService.list(Wrappers.<SysUserRole>lambdaQuery().eq(SysUserRole::getUserId, user.getId()))
                     .parallelStream().map(SysUserRole::getRoleId).collect(Collectors.toList());
@@ -96,14 +97,16 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserDao, SysUser> impleme
      */
     @Override
     public List<SysPrivilege> userPrivileges(SysUser user) {
-        List<SysPrivilege> privileges=new ArrayList<>();
+        List<SysPrivilege> privileges;
         if(user.getAdminType().equals(1)){
             //管理员角色默认拥有所有权限
+            privileges=privilegeService.list();
         }else{
-            privileges=userDao.userPrivileges(user.getId());
+            privileges= userDao.userPrivileges(user.getId());
         }
         return privileges;
     }
+
 
 
     @Transactional(rollbackFor = Exception.class)

@@ -4,10 +4,14 @@ package com.orchid.system.controller;
 import com.baomidou.mybatisplus.extension.api.ApiController;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.orchid.core.Result;
+import com.orchid.core.util.TreeUtil;
 import com.orchid.mybatis.util.AssertUtils;
+import com.orchid.system.entity.SysPrivilege;
 import com.orchid.system.entity.SysUser;
+import com.orchid.system.service.SysPrivilegeService;
 import com.orchid.system.service.SysUserService;
 import com.orchid.system.vo.UserVo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.web.bind.annotation.*;
 
@@ -119,24 +123,25 @@ public class SysUserController extends ApiController {
 
     /**
      * 获取用户关联的角色
-     * @param id
+     * @param username
      * @return
      */
     @GetMapping("roles")
-    public Result userRoles(Long id){
-        SysUser user=sysUserService.getById(id);
+    public Result userRoles(String username){
+        SysUser user=sysUserService.lambdaQuery().eq(SysUser::getUsername, username).one();
         return Result.success(sysUserService.userRoles(user));
     }
 
 
     /**
-     * 获取用户所有权限列表
-     * @param userId
+     * 获取用户关联的角色
+     * @param username
      * @return
      */
     @GetMapping("privileges")
-    public Result userPrivilege(@RequestParam("userId") Long userId){
-        return Result.success();
+    public Result userPrivileges(String username){
+        SysUser user=sysUserService.lambdaQuery().eq(SysUser::getUsername, username).one();
+        return Result.success(TreeUtil.buildTree(sysUserService.userPrivileges(user)));
     }
 
 

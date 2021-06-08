@@ -37,7 +37,7 @@ public class SystemServiceApp {
         System.out.println(authContext.getRoles());
         System.out.println(authContext.getUsername());
         System.out.println(authContext.isSuperAdmin());
-        return authenticationToken;
+        return authenticationToken.getPrincipal();
     }
 
 
