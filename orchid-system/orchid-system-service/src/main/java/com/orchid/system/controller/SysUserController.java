@@ -8,13 +8,6 @@ import com.orchid.mybatis.util.AssertUtils;
 import com.orchid.system.entity.SysUser;
 import com.orchid.system.service.SysUserService;
 import com.orchid.system.vo.UserVo;
-<<<<<<< .mine
-
-
-=======
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
->>>>>>> .theirs
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.web.bind.annotation.*;
 
