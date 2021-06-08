@@ -11,7 +11,7 @@
 
     <groupId>com.orchid</groupId>
     <artifactId>orchid-system-service</artifactId>
-
+    <version>1.0-SNAPSHOT</version>
 
     <dependencies>
         <dependency>
@@ -35,11 +35,11 @@
             <version>1.0-SNAPSHOT</version>
         </dependency>
 
-        <!--<dependency>-->
-            <!--<groupId>com.orchid.resource</groupId>-->
-            <!--<artifactId>orchid-resource-server</artifactId>-->
-            <!--<version>1.0-SNAPSHOT</version>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>com.orchid.resource</groupId>
+            <artifactId>orchid-resource-server</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
 
         <!--<dependency>-->
             <!--<groupId>com.orchid</groupId>-->

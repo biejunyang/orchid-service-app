@@ -8,6 +8,14 @@ import com.orchid.mybatis.util.AssertUtils;
 import com.orchid.system.entity.SysUser;
 import com.orchid.system.service.SysUserService;
 import com.orchid.system.vo.UserVo;
+<<<<<<< .mine
+
+
+=======
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+>>>>>>> .theirs
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -23,6 +31,7 @@ import java.util.List;
 @RestController
 @RequestMapping("user")
 public class SysUserController extends ApiController {
+
     /**
      * 服务对象
      */
@@ -36,8 +45,6 @@ public class SysUserController extends ApiController {
      * @param sysUser
      * @return
      */
-//    @PreAuthorize("hasAuthority('USER_LIST')")
-//        @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping
     public Result find(SysUser sysUser) {
         return Result.success(sysUserService.findUsers(sysUser));
@@ -87,7 +94,7 @@ public class SysUserController extends ApiController {
     @PostMapping
     public Result insert(@RequestBody SysUser sysUser) {
         AssertUtils.columnNotUsed(sysUserService.getBaseMapper(), sysUser, "用户名", SysUser::getUsername);
-
+        sysUser.setPassword(PasswordEncoderFactories.createDelegatingPasswordEncoder().encode(sysUser.getPassword()));
         return Result.success(this.sysUserService.save(sysUser));
     }
 
