@@ -134,18 +134,6 @@ public class SysUserController extends ApiController {
 
 
     /**
-     * 获取用户关联的角色
-     * @param username
-     * @return
-     */
-    @GetMapping("privileges")
-    public Result userPrivileges(String username){
-        SysUser user=sysUserService.lambdaQuery().eq(SysUser::getUsername, username).one();
-        return Result.success(TreeUtil.buildTree(sysUserService.userPrivileges(user)));
-    }
-
-
-    /**
      * 角色授权
      * @param userVo
      * @return

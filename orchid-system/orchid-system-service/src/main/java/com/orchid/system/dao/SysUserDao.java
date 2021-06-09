@@ -22,7 +22,7 @@ public interface SysUserDao extends BaseMapper<SysUser> {
 
     List<SysUser> findUsers(IPage<SysUser> page, @Param("userVo") SysUser userVo);
 
-    @Select("select * from sys_privilege where id in (select privilege_id from sys_role_privilege where role_id in (select role_id from sys_user_role where user_id = #{id))")
-    List<SysPrivilege> userPrivileges(Long id);
+    @Select("select * from sys_privilege where id in (select privilege_id from sys_role_privilege where role_id in (select role_id from sys_user_role where user_id = #{id}))")
+    List<SysPrivilege> userPrivileges(@Param("id") Long id);
 
 }

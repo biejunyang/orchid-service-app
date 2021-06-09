@@ -7,14 +7,25 @@ import com.baomidou.mybatisplus.extension.api.ApiController;
 import com.baomidou.mybatisplus.extension.api.R;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.orchid.core.Result;
+import com.orchid.core.auth.AuthContext;
+import com.orchid.core.auth.AuthContextHolder;
+import com.orchid.core.util.TreeUtil;
+import com.orchid.system.entity.SysPrivilege;
 import com.orchid.system.entity.SysRole;
+import com.orchid.system.entity.SysUser;
 import com.orchid.system.service.SysRoleService;
+import com.orchid.system.service.SysUserService;
 import com.orchid.system.vo.RoleVo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * 系统角色信息表(SysRole)表控制层
@@ -29,7 +40,12 @@ public class SysRoleController extends ApiController {
      * 服务对象
      */
     @Resource
-    private SysRoleService sysRoleService;
+    private SysRoleService roleService;
+
+
+    @Autowired
+    private SysUserService userService;
+
 
     /**
      * 分页查询所有数据
@@ -40,7 +56,7 @@ public class SysRoleController extends ApiController {
      */
     @GetMapping
     public Result selectAll(Page<SysRole> page, SysRole sysRole) {
-        return Result.success(this.sysRoleService.page(page, new QueryWrapper<>(sysRole).orderByDesc("id")));
+        return Result.success(this.roleService.page(page, new QueryWrapper<>(sysRole).orderByDesc("id")));
     }
 
 
@@ -54,7 +70,7 @@ public class SysRoleController extends ApiController {
      */
     @GetMapping("{id}")
     public Result selectOne(@PathVariable Serializable id) {
-        return Result.success(this.sysRoleService.getById(id));
+        return Result.success(this.roleService.getById(id));
     }
 
     /**
@@ -65,7 +81,7 @@ public class SysRoleController extends ApiController {
      */
     @PostMapping
     public Result insert(@RequestBody SysRole sysRole) {
-        sysRoleService.save(sysRole);
+        roleService.save(sysRole);
         return Result.success();
     }
 
@@ -79,7 +95,7 @@ public class SysRoleController extends ApiController {
      */
     @PutMapping
     public Result update(@RequestBody SysRole sysRole) {
-        this.sysRoleService.updateById(sysRole);
+        this.roleService.updateById(sysRole);
         return Result.success();
     }
 
@@ -91,7 +107,7 @@ public class SysRoleController extends ApiController {
      */
     @DeleteMapping
     public Result delete(@RequestParam("idList") List<Long> idList) {
-        sysRoleService.deleteByIds(idList);
+        roleService.deleteByIds(idList);
         return Result.success();
     }
 
@@ -102,9 +118,33 @@ public class SysRoleController extends ApiController {
      * @param roleId
      * @return
      */
-    @GetMapping("privileges")
-    public Result rolePrivileges(@RequestParam("roleId") Long roleId){
-        return Result.success(sysRoleService.getRolePrivilegeIds(roleId));
+    @GetMapping("editPrivileges")
+    public Result editPrivileges(@RequestParam("roleId") Long roleId){
+        SysUser sysUser=new SysUser();
+        sysUser.setId(AuthContextHolder.getContext().getLoginUser().getId());
+        sysUser.setUsername(AuthContextHolder.getContext().getLoginUser().getUsername());
+        sysUser.setAdminType(AuthContextHolder.getContext().getLoginUser().getAdminType());
+
+        //当前修改用户拥有权限(2)
+        List<SysPrivilege> userPrivileges=userService.userPrivileges(sysUser);
+
+        //修改角色拥有权限(4)
+        List<SysPrivilege> rolePrivileges=roleService.rolePrivileges(roleId);
+
+        //取并集获取所有可展示的权限列表
+        List<SysPrivilege> allPriveleges=new ArrayList<>(userPrivileges);
+        allPriveleges.removeAll(rolePrivileges);
+        allPriveleges.addAll(rolePrivileges);
+
+        allPriveleges.forEach(item -> {
+            if(!userPrivileges.contains(item)){//用户没有权限修改
+                item.setDisabled(1);
+            }
+        });
+        Map<String, Object> resultMap=new HashMap<>();
+        resultMap.put("allPriveleges", TreeUtil.buildTree(allPriveleges));
+        resultMap.put("checkedIds", rolePrivileges.parallelStream().map(SysPrivilege::getId).collect(Collectors.toList()));
+        return Result.success(resultMap);
     }
 
     /**
@@ -113,7 +153,7 @@ public class SysRoleController extends ApiController {
      */
     @PostMapping("grant")
     public Result grantPrivileges(@RequestBody RoleVo roleVo){
-        sysRoleService.grantPrivileges(roleVo.getRoleId(), roleVo.getPrivilegeIds());
+        roleService.grantPrivileges(roleVo.getRoleId(), roleVo.getPrivilegeIds());
         return Result.success();
     }
 }

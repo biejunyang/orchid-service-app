@@ -1,6 +1,7 @@
 package com.orchid.system.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.collection.CollectionUtil;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.orchid.system.dao.SysRoleDao;
@@ -8,9 +9,7 @@ import com.orchid.system.entity.SysPrivilege;
 import com.orchid.system.entity.SysRole;
 import com.orchid.system.entity.SysRolePrivilege;
 import com.orchid.system.entity.SysUserRole;
-import com.orchid.system.service.SysRolePrivilegeService;
-import com.orchid.system.service.SysRoleService;
-import com.orchid.system.service.SysUserRoleService;
+import com.orchid.system.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,33 +28,34 @@ import java.util.stream.Collectors;
 public class SysRoleServiceImpl extends ServiceImpl<SysRoleDao, SysRole> implements SysRoleService {
 
     @Autowired
-    private SysRolePrivilegeService sysRolePrivilegeService;
+    private SysRolePrivilegeService rolePrivilegeService;
 
     @Autowired
     private SysUserRoleService userRoleService;
 
-    @Override
-    public List<SysPrivilege> getRolePrivileges(long roleId) {
-        return null;
-    }
+    @Autowired
+    private SysPrivilegeService privilegeService;
 
     @Override
-    public List<Long> getRolePrivilegeIds(long roleId) {
-        List<Long> privilegeIds=sysRolePrivilegeService.list(Wrappers.<SysRolePrivilege>
-                lambdaQuery().eq(SysRolePrivilege::getRoleId, roleId))
+    public List<SysPrivilege> rolePrivileges(Long roleId) {
+        List<Long> rolePrivilegeIds = rolePrivilegeService.lambdaQuery().eq(SysRolePrivilege::getRoleId, roleId)
+                .select(SysRolePrivilege::getPrivilegeId).list()
                 .parallelStream().map(SysRolePrivilege::getPrivilegeId)
                 .collect(Collectors.toList());
-        return privilegeIds;
+        if (CollectionUtil.isNotEmpty(rolePrivilegeIds)) {
+            return privilegeService.lambdaQuery().in(SysPrivilege::getId, rolePrivilegeIds).list();
+        }
+        return CollectionUtil.newArrayList();
     }
 
     @Override
     public void grantPrivileges(Long roleId, List<Long> privilegeIds) {
-        sysRolePrivilegeService.remove(Wrappers.<SysRolePrivilege>lambdaQuery()
+        rolePrivilegeService.remove(Wrappers.<SysRolePrivilege>lambdaQuery()
                 .eq(SysRolePrivilege::getRoleId, roleId));
         if(CollUtil.isNotEmpty(privilegeIds)){
             List<SysRolePrivilege> rolePrivileges=new ArrayList<>();
             privilegeIds.forEach(pid->rolePrivileges.add(new SysRolePrivilege(roleId, pid)));
-            sysRolePrivilegeService.saveBatch(rolePrivileges);
+            rolePrivilegeService.saveBatch(rolePrivileges);
         }
     }
 
@@ -69,7 +69,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleDao, SysRole> impleme
     public void deleteByIds(List<Long> roleIds) {
 
         //删除角色权限关联信息
-        sysRolePrivilegeService.remove(Wrappers.<SysRolePrivilege>lambdaQuery()
+        rolePrivilegeService.remove(Wrappers.<SysRolePrivilege>lambdaQuery()
                 .in(SysRolePrivilege::getRoleId, roleIds));
 
         //删除用户角色关联信息

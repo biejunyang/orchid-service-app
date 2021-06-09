@@ -8,6 +8,7 @@ import com.orchid.core.model.TreeNode;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * 系统权限信息表(SysPrivilege)表实体类
@@ -53,6 +54,7 @@ public class SysPrivilege extends Model<SysPrivilege> implements TreeNode {
     //父级节点id
     @TableField(exist = false)
     private Long parentId;
+
 
     @Override
     public Long getId() {
@@ -203,5 +205,20 @@ public class SysPrivilege extends Model<SysPrivilege> implements TreeNode {
         this.children=children;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        SysPrivilege that = (SysPrivilege) o;
+        return Objects.equals(id, that.id);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

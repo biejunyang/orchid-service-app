@@ -14,9 +14,7 @@ import java.util.List;
  */
 public interface SysRoleService extends IService<SysRole> {
 
-    List<SysPrivilege> getRolePrivileges(long roleId);
-
-    List<Long> getRolePrivilegeIds(long roleId);
+    List<SysPrivilege> rolePrivileges(Long roleId);
 
     void grantPrivileges(Long roleId, List<Long> privilegeIds);
 
