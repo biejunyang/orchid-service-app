@@ -57,7 +57,7 @@ security:
 #      jwk:
 #        key-set-uri: http://localhost:9001/.well-known/jwks.json
       jwt:
-        key-uri:  http://localhost:9001/oauth/token_key
+        key-uri:  http://10.225.12.98:9001/oauth/token_key
 #        key-value: classpath:pubkey.txt
 
 

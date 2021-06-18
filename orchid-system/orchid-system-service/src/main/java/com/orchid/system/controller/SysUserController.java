@@ -1,21 +1,16 @@
 package com.orchid.system.controller;
 
 
-import com.baomidou.mybatisplus.extension.api.ApiController;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.orchid.core.Result;
-import com.orchid.core.util.TreeUtil;
 import com.orchid.mybatis.util.AssertUtils;
-import com.orchid.system.entity.SysPrivilege;
 import com.orchid.system.entity.SysUser;
-import com.orchid.system.service.SysPrivilegeService;
 import com.orchid.system.service.SysUserService;
 import com.orchid.system.vo.UserVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
 import java.io.Serializable;
 import java.util.List;
 
@@ -27,12 +22,12 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("user")
-public class SysUserController extends ApiController {
+public class SysUserController {
 
     /**
      * 服务对象
      */
-    @Resource
+    @Autowired
     private SysUserService sysUserService;
 
 
