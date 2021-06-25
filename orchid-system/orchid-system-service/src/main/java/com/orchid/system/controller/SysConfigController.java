@@ -4,8 +4,10 @@ package com.orchid.system.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.orchid.core.Result;
+import com.orchid.mybatis.util.AssertUtils;
 import com.orchid.system.entity.SysConfig;
 import com.orchid.system.service.SysConfigService;
+import com.orchid.web.aop.NoRepeatInsert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -69,8 +71,10 @@ public class SysConfigController {
      * @param sysConfig 实体对象
      * @return 新增结果
      */
+    @NoRepeatInsert(key="'SysConfig:code:'+#{sysConfig.code}")
     @PostMapping
     public Result insert(@RequestBody SysConfig sysConfig) {
+        AssertUtils.columnNotUsed(sysConfigService.getBaseMapper(), sysConfig, "参数编码", SysConfig::getCode);
         return Result.success(this.sysConfigService.save(sysConfig));
     }
 

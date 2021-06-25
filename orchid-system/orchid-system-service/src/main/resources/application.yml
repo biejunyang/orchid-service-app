@@ -81,32 +81,3 @@ mybatis-plus:
   mapper-locations: classpath*:mapper/*.xml
   type-aliases-package: com.orchid.system.entity
 #--------------------------------------------------------
-
-
-
-
-#orchid:
-#  auth:
-#    jwt:
-#      ignores：
-#        # 需要过滤的 post 请求
-#        post:
-#        - "/api/auth/login"
-#        - "/api/auth/logout"
-#        # 需要过滤的请求，不限方法
-#        pattern:
-#        - "/role/*"
-#        issuer:
-
-#orchid:
-#  auth:
-#    jwt:
-#      ignores:
-#        post:
-#        - "/api/auth/login"
-#        - "/api/auth/logout"
-#        # 需要过滤的请求，不限方法
-#        pattern:
-#        - "/role/*"
-
-
