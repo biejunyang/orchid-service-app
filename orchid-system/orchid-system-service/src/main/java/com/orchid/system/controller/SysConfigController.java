@@ -11,6 +11,7 @@ import com.orchid.web.aop.NoRepeatInsert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.io.Serializable;
 import java.util.List;
 
@@ -74,7 +75,7 @@ public class SysConfigController {
     @NoRepeatInsert(key="'SysConfig:code:'+#sysConfig.code", label = "参数编码")
 //    @NoRepeatInsert(label = "参数编码", name="code")
     @PostMapping
-    public Result insert(@RequestBody SysConfig sysConfig) {
+    public Result insert(@Valid @RequestBody SysConfig sysConfig) {
         AssertUtils.columnNotUsed(sysConfigService.getBaseMapper(), sysConfig, "参数编码", SysConfig::getCode);
         return Result.success(this.sysConfigService.save(sysConfig));
     }

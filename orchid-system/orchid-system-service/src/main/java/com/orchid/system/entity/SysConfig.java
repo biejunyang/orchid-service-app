@@ -5,6 +5,8 @@ import com.orchid.mybatis.entity.BaseEntity;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotEmpty;
+
 /**
  * 系统参数配置表(SysConfig)表实体类
  *
@@ -18,12 +20,15 @@ public class SysConfig extends BaseEntity<SysConfig> {
 
 
     //名称
+    @NotEmpty(message = "参数名称不能为空!")
     private String name;
 
     //编码
+    @NotEmpty(message = "参数编码不能为空!")
     private String code;
 
     //值
+    @NotEmpty(message = "参数值不能为空!")
     private String value;
 
     //是否是系统参数（Y-是，N-否）
