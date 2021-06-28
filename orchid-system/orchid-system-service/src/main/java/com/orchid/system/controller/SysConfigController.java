@@ -71,7 +71,8 @@ public class SysConfigController {
      * @param sysConfig 实体对象
      * @return 新增结果
      */
-    @NoRepeatInsert(key="'SysConfig:code:'+#{sysConfig.code}")
+    @NoRepeatInsert(key="'SysConfig:code:'+#sysConfig.code", label = "参数编码")
+//    @NoRepeatInsert(label = "参数编码", name="code")
     @PostMapping
     public Result insert(@RequestBody SysConfig sysConfig) {
         AssertUtils.columnNotUsed(sysConfigService.getBaseMapper(), sysConfig, "参数编码", SysConfig::getCode);
