@@ -4,6 +4,7 @@ package com.orchid.system.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.orchid.core.Result;
+import com.orchid.core.log.OperateLog;
 import com.orchid.mybatis.util.AssertUtils;
 import com.orchid.system.entity.SysConfig;
 import com.orchid.system.service.SysConfigService;
@@ -72,7 +73,8 @@ public class SysConfigController {
      * @param sysConfig 实体对象
      * @return 新增结果
      */
-    @NoRepeatInsert(key="'SysConfig:code:'+#sysConfig.code", label = "参数编码")
+    @OperateLog(title = "参数配置_新增", name = "参数配置", type = "新增")
+//    @NoRepeatInsert(key="'SysConfig:code:'+#sysConfig.code", label = "参数编码")
 //    @NoRepeatInsert(label = "参数编码", name="code")
     @PostMapping
     public Result insert(@Valid @RequestBody SysConfig sysConfig) {

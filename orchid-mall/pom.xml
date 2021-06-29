@@ -3,21 +3,17 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>orchid</artifactId>
+        <artifactId>orchid-service-app</artifactId>
         <groupId>com.orchid</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.orchid</groupId>
-    <artifactId>orchid-service-app</artifactId>
+    <groupId>com.orchid.mall</groupId>
+    <artifactId>orchid-mall</artifactId>
     <packaging>pom</packaging>
-
     <modules>
-        <module>orchid-order</module>
-        <module>orchid-product</module>
-        <module>orchid-system</module>
-        <module>orchid-mall</module>
+        <module>orchid-mall-service</module>
     </modules>
 
 
