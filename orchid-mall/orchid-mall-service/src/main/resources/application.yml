@@ -1,0 +1,81 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: orchid-mall
+#  main:
+#    allow-bean-definition-overriding: true
+  datasource:
+    url: jdbc:mysql://10.225.12.120:3306/test?useUnicode=true&characterEncoding=utf8&autoReconnect=true&failOverReadOnly=false&zeroDateTimeBehavior=convertToNull&tinyInt1isBit=false&useSSL=false
+    username: root
+    password: bgi2019$
+
+  #redis连接池配置
+  redis:
+    host: 10.225.12.98
+    port: 6379
+    password: bgiredis
+    #    数据库模式指定，0~15一共16个模式，默认选择0
+    database: 8
+    #    spring boot2中默认使用lettuce作为redis客户端
+#    lettuce:
+#      pool:
+#        #        连接池最大连接池
+#        max-active: 8
+#        #        连接池最大阻塞时间，单位毫秒，负数表示没有限制
+#        max-wait: -1
+#        #        连接池中最大空闲连接数量
+#        max-idle: 8
+#        #        连接池中最小空闲连接数量
+#        min-idle: 0
+
+
+# Spring Security 5.x中 resource server实现
+# 默认支持jwt bear token校验
+#  security:
+#    oauth2:
+#      resourceserver:
+#        jwt:
+#          jwk-set-uri: http://localhost:9001/.well-known/jwks.json
+
+
+
+
+#安全认证管理--------------------------------------------
+security:
+  oauth2:
+    client:
+      client-id: client
+      client-secret: client
+    resource:
+#      prefer-token-info: true
+#      token-info-uri: http://localhost:9001/oauth/check_token
+#      user-info-uri: http://localhost:9001/userInfo
+#      jwk:
+#        key-set-uri: http://localhost:9001/.well-known/jwks.json
+      jwt:
+        key-uri:  http://10.225.12.98:9001/oauth/token_key
+#        key-value: classpath:pubkey.txt
+
+
+#--------------------------------------------------------
+
+
+
+
+#mybatis-plus 配置--------------------------------------
+mybatis-plus:
+  configuration:
+    auto-mapping-behavior: FULL
+    auto-mapping-unknown-column-behavior: WARNING
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    banner: false
+    db-config:
+      id-type: ASSIGN_ID
+      table-prefix:
+  log: true
+  mapper-locations: classpath*:mapper/*.xml
+  type-aliases-package: com.orchid.system.entity
+#--------------------------------------------------------
