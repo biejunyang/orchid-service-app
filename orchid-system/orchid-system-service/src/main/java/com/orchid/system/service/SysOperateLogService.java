@@ -11,4 +11,5 @@ import com.orchid.system.entity.SysOperateLog;
  */
 public interface SysOperateLogService extends IService<SysOperateLog> {
 
+
 }

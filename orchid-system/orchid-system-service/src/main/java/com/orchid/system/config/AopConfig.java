@@ -11,13 +11,13 @@ import org.springframework.context.annotation.Primary;
  * @version 1.0
  * @date 2021/5/18 15:17
  */
-@Configuration
+//@Configuration
 public class AopConfig {
 
-    @Primary
-    @Bean
-    public OperateLogAop operateLogAop(OperateLogService operateLogService){
-        return new OperateLogAop(operateLogService);
-    }
+//    @Primary
+//    @Bean
+//    public OperateLogAop operateLogAop(OperateLogServiceImpl operateLogService){
+//        return new OperateLogAop(operateLogService);
+//    }
 
 }
