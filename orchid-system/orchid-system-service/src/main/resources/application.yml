@@ -9,13 +9,13 @@ spring:
 #  main:
 #    allow-bean-definition-overriding: true
   datasource:
-    url: jdbc:mysql://10.225.12.120:3306/test?useUnicode=true&characterEncoding=utf8&autoReconnect=true&failOverReadOnly=false&zeroDateTimeBehavior=convertToNull&tinyInt1isBit=false&useSSL=false
-    username: root
-    password: bgi2019$
+    url: jdbc:mysql://xxxxx:3306/test?useUnicode=true&characterEncoding=utf8&autoReconnect=true&failOverReadOnly=false&zeroDateTimeBehavior=convertToNull&tinyInt1isBit=false&useSSL=false
+    username: xxxx
+    password: xxxxxx
 
   #redis连接池配置
   redis:
-    host: 10.225.12.98
+    host: x
     port: 6379
     password: bgiredis
     #    数据库模式指定，0~15一共16个模式，默认选择0
@@ -57,7 +57,7 @@ security:
 #      jwk:
 #        key-set-uri: http://localhost:9001/.well-known/jwks.json
       jwt:
-        key-uri:  http://10.225.12.98:9001/oauth/token_key
+        key-uri:  http://xxxxx:9001/oauth/token_key
 #        key-value: classpath:pubkey.txt
 
 

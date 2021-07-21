@@ -13,7 +13,7 @@ eureka:
     fetch-registry: true
     registry-fetch-interval-seconds: 30
     service-url:
-      defaultZone: http://10.225.12.96:8763/eureka/
+      defaultZone: http://xxxxxx:8763/eureka/
   instance:
     prefer-ip-address: true
     lease-renewal-interval-in-seconds: 30
